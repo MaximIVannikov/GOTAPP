@@ -3,10 +3,10 @@ import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, BooksPage, HousesPage } from '../pages';
-import ItemList from '../itemList';
-import ItemDetails from '../itemDetails';
+import {CharacterPage, BooksPage, HousesPage, BooksItem } from '../pages';
 import gotService from '../../services/gotService';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import './app.css';
 
 
 export default class App extends Component {
@@ -44,24 +44,32 @@ export default class App extends Component {
         }
 
         return (
-            <> 
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {char}
-                            <Button 
-                            color="primary" size="lg" block
-                            onClick={this.toggleRandomChar}>Toggle Random</Button>
-                        </Col>
-                    </Row>
-                    <CharacterPage/>  
-                    <BooksPage/>
-                    <HousesPage/>
-                </Container>
-            </>
+            <Router>
+                <div className="app"> 
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col lg={{size: 5, offset: 0}}>
+                                {char}
+                                <Button 
+                                color="primary" size="lg" block
+                                onClick={this.toggleRandomChar}>Toggle Random</Button>
+                            </Col>
+                        </Row>
+                        <Route path='/' exact component={() => <h1>Welcome to GOT DB</h1>}/>
+                        <Route path='/characters' component={CharacterPage}/>
+                        <Route path='/houses' component={HousesPage}/>
+                        <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/books/:id' render={
+                            ({match}) => { 
+                                const {id} = match.params;
+                                return <BooksItem bookId={id}/>}
+                            }/>
+                    </Container>
+                </div>
+            </Router>
         );
     }
 };
