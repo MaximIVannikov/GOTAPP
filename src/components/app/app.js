@@ -5,7 +5,7 @@ import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
 import CharacterPage from '../characterPage/characterPage';
 import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import ItemDetails from '../itemDetails';
 import gotService from '../../services/gotService';
 
 
@@ -66,7 +66,7 @@ export default class App extends Component {
                                 renderItem={(item) => item.name}/>
                         </Col>
                         <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
+                            <ItemDetails charId={this.state.selectedChar}/>
                         </Col>
                     </Row>
                     <Row>
@@ -77,7 +77,7 @@ export default class App extends Component {
                                 renderItem={(item) => item.name}/>
                         </Col>
                         <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
+                            <ItemDetails charId={this.state.selectedChar}/>
                         </Col>
                     </Row>
                 </Container>

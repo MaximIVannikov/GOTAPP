@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import './itemList.css';
 import Spinner from '../spinner';
-import ErrorMessage from '../errorMessage';
+
 export default class ItemList extends Component {
     
     
 
     state = {
-        charList: null, 
-        error: false
+        itemList: null, 
+       
     }
 
     componentDidMount(){
@@ -18,25 +18,12 @@ export default class ItemList extends Component {
             .then((itemList) => {
                 this.setState({
                     itemList, 
-                    error: false
+                    
                 });
             })
             .catch(()=> {this.onError()});
     }   
 
-    componentDidCatch() {
-        this.setState({
-            charList: null,
-            error: true
-        })
-    }
-
-    onError(status) {
-        this.setState({
-            char: null,
-            error: true
-        })
-    }
 
     renderItems(arr){
         return arr.map((item) => {
@@ -56,15 +43,13 @@ export default class ItemList extends Component {
 
     render() {
 
-        const {itemList, error} = this.state;
+        const {itemList} = this.state;
 
        
         if(!itemList) {
             return <Spinner/>
         }
-        if(error) {
-            return<ErrorMessage/>
-        }
+     
 
         const items = this.renderItems(itemList);
 
